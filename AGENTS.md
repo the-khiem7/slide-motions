@@ -14,6 +14,7 @@ A wrapper over the official HyperFrames skills. It carries no copy of an officia
 | A method with code that only some decks need (live playthrough, ambient loops, a new motion technique) | a file in `slide-motions/references/`, plus one row in the "Where to read more" table of `SKILL.md` | `SKILL.md` body |
 | How to find the official skills, a new search location, a new client | `slide-motions/references/resolve-upstream.md` | `SKILL.md`, which keeps only the stub |
 | A new install route, a changed install command, a new client's route | `slide-motions/references/install-upstream.md` | `resolve-upstream.md` |
+| A change to the deck-site engine (cover capture, homepage, site build, Pages workflow) | the files in `slide-motions/scripts/` and the guidance in `slide-motions/references/deck-site.md`; raise the `slide-motions site v<N>` header in every engine file | a copy inside one deck repository only, which leaves the others behind |
 | The upstream version the skill is paired with | `metadata.upstream-hyperframes-version` in the `SKILL.md` frontmatter, and the commit in "Upstream pairing" below | any other file |
 | Why something was decided, a rejected option, an open question, status | the pack `docs/baseline/slide-motions/` | `README.md`, code comments in the skill |
 | A fault that belongs to HyperFrames itself | report it to the person to raise upstream | any file here, unless it needs a workaround, then it is a rule in `SKILL.md` with the fault named |
@@ -58,6 +59,7 @@ Run from the repository root and report the result as observed, never as assumed
 - No en or em dash: `LC_ALL=C grep -n $'\xe2\x80\x93\|\xe2\x80\x94'` over the changed files finds nothing.
 - Description length: `sed -n '3p' slide-motions/SKILL.md | wc -c` stays below 1024.
 - A change to how a deck behaves is tried on a real deck: `npx hyperframes check --json` clean, `snapshot --at` each affected slide, `present` opened. If it was not run, say "not run" in the pack and in the reply.
+- A change to `slide-motions/scripts/` is tried in a real deck repository: copy the files in, run `npm run thumbs` and `npm run site`, and run the checks under "Verify before handing over" in `references/deck-site.md`. The four engine files carry the same `slide-motions site v<N>` header, and the copies in that repository are byte-identical to the skill's (`cmp`).
 
 ## Upstream pairing
 
@@ -68,7 +70,8 @@ Run from the repository root and report the result as observed, never as assumed
   1. Read the new tag's `skills/slideshow/SKILL.md`.
   2. For each rule under "What changes from a video project" in `SKILL.md`, check with `check --json` and a `snapshot` whether upstream now covers it; remove a rule upstream absorbed, keep the rest.
   3. Check that the paths in the "Where to read more" table exist in the new tag, and whether `skills/slideshow/references/standalone-harness.md` still uses monorepo script paths (the table gives the npm paths that replace them).
-  4. Update the frontmatter version and the commit in this section.
+  4. Run `npm run site` in a deck repository on the new CLI: `build-site.mjs` pins the page `present` serves by its rewrite counts and stops when they differ; adjust `rewrites`, raise the engine version and update `references/deck-site.md`.
+  5. Update the frontmatter version and the commit in this section.
 
 ## Recording the change in the pack
 
@@ -84,5 +87,5 @@ The pack in `docs/baseline/slide-motions/` is the decision log and status record
 
 - Improvements found while the skill is in use are proposed to the person first: say what to change, why, and the expected effect. Apply only the items they approve.
 - Edit this repository, never the vendor copies under another project's `.agents/skills` or `.claude/skills`. An edit made there is overwritten by the next skills update.
-- Do not commit or push without the person's explicit authorization. This repository has no remote.
+- Do not commit or push without the person's explicit authorization. The `origin` remote is `https://github.com/the-khiem7/slide-motions.git`.
 - Do not publish or share the repository before the licence question SLM-Q2 in the pack is answered.
