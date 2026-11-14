@@ -40,7 +40,7 @@ Then make `SKILL.md` reach it, because an agent never opens a file `SKILL.md` do
 
 ## Constraints that every edit keeps
 
-- No copy of an official file in this repository: no official `SKILL.md`, reference, script or licence file. Point to the official skill by name and path inside it.
+- No copy of an official file in this repository: no official `SKILL.md`, reference, script or licence file. Point to the official skill by name and path inside it. One exception: the HyperFrames logo at `assets/source/brand/hyperframes-logo.svg`, kept only to draw the "powered by" attribution in the README illustrations; it never enters the skill folder `slide-motions/`, which the junction tool links into agent skill stores.
 - `slide-motions/SKILL.md` carries no `../` and no hardcoded path into another skill's folder. Search locations listed in `resolve-upstream.md` are places to look, not dependencies.
 - Plugin mode: never run `hyperframes skills update`, `skills check` or `npx skills add`. Never run `npx skills add` or `update` for `slide-motions` itself: it overwrites the junction with a copy. Install through `C:\.repos\Skills\.Junction\scripts\Junction.ps1`.
 - Installing the official skills writes outside the repository. The skill asks the person for consent and for scope (project or global) before running; do not weaken that when editing `install-upstream.md`.
