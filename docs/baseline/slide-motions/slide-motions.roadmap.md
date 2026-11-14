@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "roadmap"
 status: "active"
 updated: "2026-11-15"
-code_ref: "uncommitted"
+code_ref: "85d28ca"
 ---
 
 # slide-motions - Roadmap
@@ -26,9 +26,9 @@ code_ref: "uncommitted"
 
 Phase 7 (SLM-P7, GitHub Pages deploy pilot), in `C:\.repos\Personal\S4`:
 
-- Build steps 1 to 6 of SLM-P7 in S4; no commit and no push until the user asks.
-- Step 7 waits for the user: they switch Pages to "GitHub Actions" by hand (SLM-D23), then authorize the push.
-- The SLM-P6 changes in this repository stay uncommitted until the user asks.
+- Steps 1 to 6 of SLM-P7 are done in the S4 working tree. The user commits S4 with `commit-composer` and pushes it; the agent does neither.
+- The user switches Pages to "GitHub Actions" by hand (SLM-D23). After the push, check the workflow run and the live site against the SLM-P7 acceptance, then start SLM-P8.
+- In this repository SLM-P6 and the SLM-P7 plan were committed outside this thread (`81c2a26` to `85d28ca`, not pushed); commit or push nothing further until the user asks.
 - Never use `npx skills add` or `update` for this skill.
 
 ## SLM-P1: Phase 1 - Build the wrapper
@@ -82,17 +82,19 @@ Phase 7 (SLM-P7, GitHub Pages deploy pilot), in `C:\.repos\Personal\S4`:
 - Scope: repository `C:\.repos\Personal\S4` (`the-khiem7/vllm-highlevel-understanding`, public, Pages not enabled on 2026-11-15); site URL `https://the-khiem7.github.io/vllm-highlevel-understanding/`.
 - Deliver, in order:
   1. `scripts/thumbs.mjs` and `npm run thumbs`: slide 1 at its end minus 0.5 s to `slide/<topic>/<variant>/thumbnail/cover.webp`, `sharp` as devDependency (SLM-D26).
-  2. `scripts/build-site.mjs` and `npm run site`: shell captured from `present --no-open`, paths made relative, `_site/<topic>/<variant>/` with `composition/` and the thumbnail, `_site/_hf/`, `.nojekyll`; `_site/` in `.gitignore` (SLM-D24).
+  2. `scripts/build-site.mjs` and `npm run site`: shell captured from `present --no-open`, paths made relative, `_site/<topic>/<variant>/` with `composition/` and the thumbnail, `_site/hf/` (player, slideshow, homepage fonts); `_site/` in `.gitignore` (SLM-D24).
   3. Homepage `_site/index.html` with cards by topic (SLM-D25).
   4. `.github/workflows/pages.yml` (SLM-D27, SLM-D29).
   5. README: thumbnail column linking to the live decks, site URL, a Deploy section.
   6. Local test: `_site` served under `/vllm-highlevel-understanding/`; puppeteer opens a deck and its Audience tab, checks the audience follows navigation, fonts load.
   7. The user enables Pages; push on the user's authorization; check the live site.
-- Status: in progress; steps 1 to 7 not started.
+- Status: in progress; steps 1 to 6 done in the S4 working tree, uncommitted; step 7 waits for the user.
+- Evidence, 2026-11-15 in S4: `npm run thumbs` wrote `cover.webp` for restaurant (7.5 s, 15 KB) and llmhotel48 (9.5 s, 30 KB) in 24 s; `sharp` `^0.35.5`, deduplicated with the copy `hyperframes` already pulls in. `npm run site` built `_site/` (2.5 MB, 2 decks, 1 not built) in 1.6 s with the rewrite counts 1, 1 and 5. Local test, `_site` served under `/vllm-highlevel-understanding/` and driven by `puppeteer-core` with Chrome: homepage 3 cards, both thumbnails, Be Vietnam Pro 400, 600 and 800 loaded, no horizontal scroll at 390 px; the restaurant deck at 1/23, three ArrowRight moved it and its `?mode=audience` tab to slide 4; P opened one more audience tab and turned the deck tab into the presenter view with notes; no page or console error; the only 404s are the four optional `composition/sfx/*.mp3` clips the shell requests. Re-running both `build.mjs` left `slide/` unchanged; `hyperframes lint` exits 0 on both decks; the workflow parses as YAML (PyYAML). Not run: `actionlint` (blocked by a local hook), the workflow on GitHub, the live site.
+- Refactor to the shared engine (SLM-D31), 2026-11-15: S4 values moved to `slide/site.json`; `npm run site` and the local test give the same result as above; without `slide/site.json` the build falls back to the repository name, English labels, system font and the neutral theme. `titleHighlight` keeps the gradient on the word "S4" alone, as before; local test rerun with the same result.
 - Acceptance: the live homepage lists both decks with thumbnails; "Open deck" presents with Present and notes; "Audience" follows the deck tab in the same browser; the workflow passes on `main`.
 - Decisions: SLM-D23 to SLM-D29.
 
 ## SLM-P8: Phase 8 - Carry deploy and thumbnail into the skill
 
-- Deliver: a reference for the site build and the workflow (shell capture, pathname rule, same-browser sync limit, workflow template); `references/project-workflow.md` gains the thumbnail step after each build and a Deploy stage; README feature list; `AGENTS.md` layout rule checked before any new template folder.
+- Deliver: the engine files from S4 in `slide-motions/scripts/` with the `slide/site.json` contract (SLM-D31) and a layout row in `AGENTS.md`; a reference for the site build (shell capture, pathname rule, same-browser sync limit, setup of `site.json` from `deck.css`); `references/project-workflow.md` gains the thumbnail step after each build and a Deploy stage; README feature list; `AGENTS.md` layout rule checked before any new template folder.
 - Status: planned; starts once SLM-P7 passes its acceptance.

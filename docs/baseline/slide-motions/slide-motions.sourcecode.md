@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "sourcecode"
 status: "active"
 updated: "2026-11-15"
-code_ref: "uncommitted"
+code_ref: "85d28ca"
 ---
 
 # slide-motions - Source Layout

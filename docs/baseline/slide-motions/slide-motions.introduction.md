@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "introduction"
 status: "active"
 updated: "2026-11-15"
-code_ref: "uncommitted"
+code_ref: "85d28ca"
 ---
 
 # slide-motions - Introduction
@@ -17,7 +17,7 @@ One agent skill, `slide-motions`: build a HyperFrames slideshow that presents li
 
 | Claim | State |
 |---|---|
-| Repo `C:\.repos\Skills\slide-motions` on `main`, commits `bbca5f3` to `b597984`, pushed to the public `origin` `the-khiem7/slide-motions`; SLM-P6 edits uncommitted | observed 2026-11-15 (SLM-D30) |
+| Repo `C:\.repos\Skills\slide-motions` on `main`, public `origin` `the-khiem7/slide-motions`; `bbca5f3` to `b597984` pushed, SLM-P6 and this pack committed in `81c2a26` to `85d28ca` and not pushed | observed 2026-11-15 (SLM-D30) |
 | Deck site on GitHub Pages: captured `present` shell, homepage with thumbnails, Actions deploy (SLM-D23 to SLM-D29) | planned, piloted in S4 under SLM-P7 |
 | `slide-motions/SKILL.md` is a wrapper: Step 0 (identify client, resolve plugin or standalone official skills) plus the layer over `slideshow` - root clock, single-file runtime include, frozen CSS transitions, mid-point rest frame, `present` serving the raw root `index.html`, run from the parent folder - and a reading table into the official skill folders | implemented, static checks 2026-11-14 |
 | `references/resolve-upstream.md` holds Step 0 in full: client, search locations, mode | implemented, static checks 2026-11-14 |

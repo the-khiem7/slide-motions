@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "hallucination"
 status: "active"
 updated: "2026-11-15"
-code_ref: "uncommitted"
+code_ref: "85d28ca"
 ---
 
 # slide-motions - Decisions and Open Questions
@@ -43,6 +43,7 @@ code_ref: "uncommitted"
 | SLM-D28 | Speaker notes public on the deployed site | decided | SLM-D25 |
 | SLM-D29 | Workflow trigger, permissions and action pinning | decided | SLM-D23 |
 | SLM-D30 | Repository state "no commit, no remote" was stale | lesson | SLM-Q2 |
+| SLM-D31 | Site engine shared across repositories, per-repository `slide/site.json` | decided | SLM-Q3, SLM-D25, SLM-D26 |
 | SLM-Q1 | Drop the usage beacon | open | - |
 | SLM-Q2 | Licence status of a skill derived from the official `slideshow` | open | SLM-D3 |
 
@@ -217,6 +218,7 @@ code_ref: "uncommitted"
 - What breaks if ignored: a hand copy of the page drifts from the installed hyperframes and the web deck behaves unlike the local one; absolute paths 404 under the repository subpath.
 - Condition met: the user accepted capture only if it caused no Actions charge. `present` is a Node HTTP server (`hono`, `@hono/node-server`) that opens a browser only with `--open`, and `npm ci` downloads no browser (`puppeteer-core` only; the one install script is `esbuild`), so the workflow runs no Chrome [agent].
 - Rejected: a hand-written template of the 0.9.46 page - freezes upstream internals in the repository [agent].
+- Implementation: besides the counts (1 `/player.js`, 1 `/slideshow.js`, 5 `/composition/`), the build fails on any root-absolute path left in the page. Shared files sit in `_site/hf/`, not `_hf/`, and no `.nojekyll` is written: `upload-pages-artifact` v5 drops hidden files unless `include-hidden-files` is set, and an Actions deployment runs no Jekyll [agent].
 
 ### SLM-D25: Homepage card - thumbnail, "Open deck" and "Audience" buttons
 
@@ -260,6 +262,13 @@ code_ref: "uncommitted"
 - Disproven 2026-11-15 by `git log` and `git remote -v`: nine commits from `bbca5f3` (2026-11-14) to `b597984`, `origin` is `https://github.com/the-khiem7/slide-motions.git`, `main` is level with `origin/main`, and the GitHub repository is public. Who committed and pushed was not observed in this thread [agent].
 - Lesson: re-run `git log -1` and `git remote -v` before restating repository state from a pack or a summary; a commit made outside the session is invisible otherwise [agent].
 - Consequence: SLM-Q2 recommended keeping the repository private until the licence question is answered; it is now public [agent].
+
+### SLM-D31: Site engine shared across repositories, per-repository `slide/site.json`
+
+- Decision: the skill ships the site engine as files in `slide-motions/scripts/` (`decks.mjs`, `thumbs.mjs`, `build-site.mjs`, `pages.yml`, each headed `slide-motions site v1`), which the agent copies unchanged into a deck repository; everything specific to that repository lives in `slide/site.json`: `title`, `titleHighlight` (the words of the title drawn in `theme.titleGradient`), `lang` (`vi` or `en` labels, overridable through `strings`), `topics` (display names), `theme` and `font` (an `@fontsource` package, subsets, weights). Missing fields fall back to the repository name, English, the system font and a neutral dark theme; the repository URL comes from `GITHUB_REPOSITORY` in CI and the `origin` remote locally. The agent fills `theme` once at setup from the deck's `deck.css` `:root` tokens. `AGENTS.md` gains a layout row for `slide-motions/scripts/`. S4 runs this engine before its first commit. Closes SLM-Q3. Decided by the user, 2026-11-15.
+- Why: the first S4 homepage hard-coded its title, Vietnamese labels, vLLM palette, Be Vietnam Pro and repository URL, so a copy elsewhere is edited by hand and stops taking updates from the skill [agent]; each repository keeps the look of its decks [user]; the config contains the fixed-design option, since a repository without it gets the neutral page [agent].
+- What breaks if ignored: engine copies diverge per repository and a fix in the skill cannot reach them; an edit to a script instead of `slide/site.json` is lost at the next engine update.
+- Rejected: one fixed neutral design for every repository - S4 loses the look of its decks [user]. A homepage written by the agent per repository - copies drift and nothing is tested [agent]. Deriving the theme from deck CSS at every build - variable names differ between decks [agent]. Running the engine from the skill folder - the CI runner has no skill [agent]. Code blocks inside a reference file - copied by hand, error-prone [user]. The config at the root (`site.config.json`) or as a `package.json` key - the user chose `slide/site.json`; a `package.json` key would split badly once decks get their own manifests (SLM-D16) [agent]. A gradient over the whole title only - the user wanted the word "S4" highlighted as in the first homepage [user].
 
 ## Open questions
 
