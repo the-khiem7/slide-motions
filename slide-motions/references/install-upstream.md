@@ -18,7 +18,7 @@ Use the route of the client you identified in Step 0.
 
 | Client | Preferred route | Alternative |
 |---|---|---|
-| Claude Code | Plugin: `claude plugin marketplace add heygen-com/hyperframes`, then `claude plugin install hyperframes@hyperframes`, then `/reload-plugins` or a new session. Check `claude plugin details hyperframes`. Check `claude plugin install --help` for a scope flag | Standalone global |
+| Claude Code | Plugin: `claude plugin marketplace add heygen-com/hyperframes`, then `claude plugin install hyperframes@hyperframes`, then `/reload-plugins` or a new session. Check `claude plugin details hyperframes`. Scope flag: `--scope user|project|local` on both `marketplace add` and `install` | Standalone at the person's scope; when the marketplace is blocked by policy, see "Plugin source blocked by policy" |
 | GitHub Copilot CLI | Plugin: `copilot plugin marketplace add heygen-com/hyperframes`, `copilot plugin install hyperframes@hyperframes`; `/skills list` to confirm | Standalone global, then `/skills reload` |
 | VS Code / Copilot | Plugin through Extensions, search `@agentPlugins`, add `heygen-com/hyperframes`. The person does this in the UI; give the steps, do not run them | Standalone |
 | Cursor | Plugin from a team marketplace, or a local copy at `~/.cursor/plugins/local/hyperframes` holding `plugin.json` and `skills/`; the person reloads Cursor | Standalone |
@@ -29,12 +29,20 @@ Use the route of the client you identified in Step 0.
 | Google Antigravity | Standalone project from the project root: `npx skills add heygen-com/hyperframes`, pick Core Skills and Antigravity (writes `.agents/skills`). Global store is `~/.gemini/config/skills` | - |
 | Other | Standalone | - |
 
+## Plugin source blocked by policy
+
+An organisation can restrict which plugin marketplaces the client may add. In Claude Code the add fails with `Marketplace source 'github:heygen-com/hyperframes' (github.com) is blocked by enterprise policy. Allowed sources: ...`, and the following `claude plugin install hyperframes@hyperframes` fails with `not found in marketplace`. Nothing is written by either.
+
+- Do not retry the plugin route, and do not try another marketplace name or source for it: the policy, not the command, is what failed.
+- Tell the person the plugin source is blocked by their organisation's policy, quote the allowed sources the message lists, and ask as labelled questions: (A) install through the standalone `npx skills add` route instead, yes or no; (B) scope, project-scoped or global-scoped, keeping the scope they already chose for the plugin as the default. Say that the policy blocks this source as a plugin, so they may want to confirm with IT before the standalone route; the decision is theirs.
+- On yes, run the standalone command for the chosen scope from the table below. On no, stop: the person can ask an administrator to allow `heygen-com/hyperframes` and retry the plugin route.
+
 ## Standalone routes by scope
 
 | Scope | Commands | Writes to |
 |---|---|---|
 | Global | `npx hyperframes skills update` (core set), then `npx hyperframes skills update slideshow` | Claude global store (`$CLAUDE_CONFIG_DIR/skills`, default `~/.claude/skills`), linked into other installed agents |
-| Project | From the video project directory: `npx skills add heygen-com/hyperframes --skill <name>` for each of `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `slideshow` (bare name, no leading slash), or `--all` for the complete set. Not confirmed here: whether `--skill` repeats in one command; check `npx skills add --help` | `.agents/skills`, `.claude/skills` of the project |
+| Project | From the video project directory: `npx skills add heygen-com/hyperframes --skill <name>` for each of `hyperframes`, `hyperframes-cli`, `hyperframes-registry`, `media-use`, `slideshow` (bare name, no leading slash), or `--all` for the complete set. `--skill` repeats in one command; add `--agent claude-code -y` (or the person's client) to skip the agent and confirmation prompts, which a non-interactive shell cannot answer: `npx -y skills add heygen-com/hyperframes --skill hyperframes --skill slideshow --skill hyperframes-cli --skill hyperframes-registry --agent claude-code -y` (observed with `skills` CLI, 2026-11-14: copied the four skills into `.claude/skills`) | `.agents/skills`, `.claude/skills` of the project |
 
 Notes that change what to run:
 - `skills update` installs from the release tag matching the CLI version, so skills match the CLI. `skills add` resolves a registry copy that can lag `main` by hours. Prefer `skills update` when the person has no preference.
