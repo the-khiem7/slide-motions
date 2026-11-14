@@ -1,0 +1,12 @@
+# Resolve the official skills (Step 0)
+
+Run this before any deck work. Needed: `slideshow` and `hyperframes` always; `hyperframes-cli`, `hyperframes-registry` and `media-use` when the task reaches them. Do not start the deck until `slideshow` and `hyperframes` are readable.
+
+1. **Know your client.** Work out from your own session which agent you run in (Claude Code, GitHub Copilot CLI, VS Code, Cursor, Gemini CLI, Codex, OpenCode, IBM Bob, Google Antigravity, other). Never guess from the user's wording. When you cannot tell, ask.
+2. **Find the skills**, in this order, stopping at the first hit for each name:
+   - The session's skill list: `slideshow`, `hyperframes`, or the plugin form `hyperframes:slideshow`. Load it with the skill tool.
+   - A plugin install: the plugin root holds `plugin.json` (or `.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/plugin.json`, or a Gemini extension manifest) naming `hyperframes`, with the skills at `<PLUGIN_ROOT>/skills/<name>/SKILL.md`. In Claude Code the root is `installPath` of the `hyperframes@hyperframes` entry in `installed_plugins.json` under `$CLAUDE_CONFIG_DIR/plugins/` (default `~/.claude/plugins/`); `claude plugin list` shows the same.
+   - A standalone install: `<name>/SKILL.md` under `$CLAUDE_CONFIG_DIR/skills` (default `~/.claude/skills`), `~/.agents/skills`, `~/.gemini/config/skills`, `~/.bob/skills`, and the project's `.claude/skills` and `.agents/skills`. A skill installed this session is not in the skill list until the client reloads; read its `SKILL.md` by path.
+   - Nothing found, or only `hyperframes` without `slideshow`: read `install-upstream.md` (same folder) and follow it. Install only after the person approves the command and the scope.
+3. **Hold the mode** for the whole session. Plugin mode: replace every `npx hyperframes` in `SKILL.md` and in the official skills with `node "<PLUGIN_ROOT>/skills/hyperframes/scripts/plugin-cli.mjs"`, run it from the user's project, and never run `hyperframes skills update`, `skills check` or `npx skills add`. Standalone mode: `npx hyperframes`. Both plugin and standalone copies present: tell the person and use the plugin copy.
+4. **Read the stock `slideshow` skill in full**, then apply the layer in `SKILL.md`. Open the other official skills only when the reading table in `SKILL.md` asks for it.
