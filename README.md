@@ -19,7 +19,7 @@ A stock HyperFrames slideshow moves between slides by seeking, so every slide ap
 
 Everything the HyperFrames slideshow gives you comes along:
 
-- slides with fragment reveals and branching hotspots
+- slides with fragment reveals, every slide on the main line, and branching hotspots when you ask for them
 - presenter mode with speaker notes, served by `hyperframes present`
 - turning an existing page into a deck, keeping its look, motion and media
 
