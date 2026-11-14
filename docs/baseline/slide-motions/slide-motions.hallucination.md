@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "hallucination"
 status: "active"
 updated: "2026-11-15"
-code_ref: "85d28ca"
+code_ref: "uncommitted"
 ---
 
 # slide-motions - Decisions and Open Questions
@@ -43,9 +43,10 @@ code_ref: "85d28ca"
 | SLM-D28 | Speaker notes public on the deployed site | decided | SLM-D25 |
 | SLM-D29 | Workflow trigger, permissions and action pinning | decided | SLM-D23 |
 | SLM-D30 | Repository state "no commit, no remote" was stale | lesson | SLM-Q2 |
-| SLM-D31 | Site engine shared across repositories, per-repository `slide/site.json` | decided | SLM-Q3, SLM-D25, SLM-D26 |
+| SLM-D31 | Site engine shared across repositories, per-repository `slide/site.json` | decided | SLM-Q3, SLM-D25, SLM-D26, SLM-Q4 |
 | SLM-Q1 | Drop the usage beacon | open | - |
 | SLM-Q2 | Licence status of a skill derived from the official `slideshow` | open | SLM-D3 |
+| SLM-Q4 | Site engine under a split toolchain | open | SLM-D16, SLM-D31 |
 
 ## Closed decisions
 
@@ -241,6 +242,7 @@ code_ref: "85d28ca"
 - Why: catches a committed `index.html` that no longer matches its sources, without a browser [agent].
 - What breaks if ignored: a hand-edited or stale `index.html` ships; with `check` in CI each run needs Chrome.
 - Rejected: full `hyperframes check` in CI - needs headless Chrome, about 1-2 minutes per deck and less stable [agent].
+- Amended 2026-11-15 [agent]: the rebuild loop skips a deck with no `src/build.mjs` (`[ -f "$build" ] || continue`). Observed under `bash -e`: with no matching file the glob passes its own pattern to `node`, which exits 1 and fails the job, so a repository whose decks are hand-written (ten slides or fewer) could never deploy; with the guard the step exits 0.
 
 ### SLM-D28: Speaker notes public on the deployed site
 
@@ -255,6 +257,7 @@ code_ref: "85d28ca"
 - Why: S4 is a working repository, so the semver release-branch convention for production repositories does not apply and `main` carries the decks [agent]; a SHA cannot be moved by a compromised tag [agent].
 - What breaks if ignored: broader token permissions than the deploy needs; a retagged action runs unreviewed code with Pages write access.
 - Rejected: pinning by tag - mutable [agent].
+- Amended 2026-11-15 [agent]: `actions/configure-pages` is not used, so the list above has four actions. Its action description is to enable Pages, extract site metadata and configure nuxt, next, gatsby or sveltekit; the deck site needs none of them (relative paths), and it reads the Pages site with the job token, which the build job holds with `contents: read` only. Not observed on GitHub: whether the step would fail there; removing it avoids an untestable permission risk and one pin.
 
 ### SLM-D30: Repository state "no commit, no remote" was stale
 
@@ -282,3 +285,9 @@ code_ref: "85d28ca"
 
 - Question: `slide-motions/SKILL.md` is derived from the official `slideshow` `SKILL.md`. The upstream repository is Apache-2.0, but its skill folders carry no licence statement of their own and the CLI package declares Apache-2.0. Is the attribution in `AGENTS.md` ("Upstream pairing") enough for the derived text?
 - Recommendation: confirm with whoever handles licensing before the repo is published or shared; until then keep it private. This is not a legal conclusion.
+
+### SLM-Q4: Site engine under a split toolchain
+
+- Question: `build-site.mjs` and `thumbs.mjs` take `hyperframes` from the root `node_modules`, and the font package and `sharp` come from the root manifest. After the split of SLM-D16 (a `package.json` per deck, run when another slide engine is about to be installed) none of them is there, so the engine fails. Should it support a split repository?
+- Recommendation [agent]: resolve `hyperframes` for each deck from the deck folder first and the root second, run the capture and the site build per deck, and install per deck in the workflow. Not built: no repository has split yet, and untested engine code is not added (`AGENTS.md`, "Before adding a rule").
+- Alternative: leave the engine root-only and have the agent stop and ask before running it after a split. This is what `references/deck-site.md`, "Limits", says now.

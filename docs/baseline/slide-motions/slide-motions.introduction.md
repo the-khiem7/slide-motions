@@ -4,21 +4,21 @@ pack: "slide-motions"
 document: "introduction"
 status: "active"
 updated: "2026-11-15"
-code_ref: "85d28ca"
+code_ref: "uncommitted"
 ---
 
 # slide-motions - Introduction
 
 ## Scope
 
-One agent skill, `slide-motions`: build a HyperFrames slideshow that presents live, with motion that plays in the presented deck. It is a wrapper over the official HyperFrames skills from https://github.com/heygen-com/hyperframes (rules verified at tag `v0.9.41`): Step 0 finds the installed `slideshow`, `hyperframes`, `hyperframes-cli`, `hyperframes-registry` and `media-use` skills, installs them with the person's approval when missing, and layers the live-motion rules on top. It also runs the project around a deck: brainstormed content and script, one folder per content file, a shared toolchain, `.gitignore` and a README listing every deck. Out of scope: video rendering guidance, upstream authoring guidance, and the FireHydra deck itself.
+One agent skill, `slide-motions`: build a HyperFrames slideshow that presents live, with motion that plays in the presented deck. It is a wrapper over the official HyperFrames skills from https://github.com/heygen-com/hyperframes (rules verified at tag `v0.9.41`): Step 0 finds the installed `slideshow`, `hyperframes`, `hyperframes-cli`, `hyperframes-registry` and `media-use` skills, installs them with the person's approval when missing, and layers the live-motion rules on top. It also runs the project around a deck: brainstormed content and script, one folder per content file, a shared toolchain, `.gitignore` and a README listing every deck, a cover thumbnail per deck, and a GitHub Pages site with a homepage of all decks. Out of scope: video rendering guidance, upstream authoring guidance, and the FireHydra deck itself.
 
 ## Current truth
 
 | Claim | State |
 |---|---|
-| Repo `C:\.repos\Skills\slide-motions` on `main`, public `origin` `the-khiem7/slide-motions`; `bbca5f3` to `b597984` pushed, SLM-P6 and this pack committed in `81c2a26` to `85d28ca` and not pushed | observed 2026-11-15 (SLM-D30) |
-| Deck site on GitHub Pages: captured `present` shell, homepage with thumbnails, Actions deploy (SLM-D23 to SLM-D29) | planned, piloted in S4 under SLM-P7 |
+| Repo `C:\.repos\Skills\slide-motions` on `main`, public `origin` `the-khiem7/slide-motions`; `bbca5f3` to `b597984` pushed, SLM-P6 and the pack committed in `81c2a26` to `b3c6d8c`, not pushed (ahead 7 of `origin/main`); the deck-site files are uncommitted | observed 2026-11-15 (SLM-D30) |
+| `references/deck-site.md` and the four engine files in `slide-motions/scripts/` hold the cover capture, the homepage, the captured `present` shell and the Pages workflow (SLM-D23 to SLM-D31); `SKILL.md` Step 1 and the reading table reach them | implemented 2026-11-15, uncommitted; run in S4 and in a fresh scratch repository with defaults; no deploy to GitHub observed; a split toolchain is not supported (SLM-Q4) |
 | `slide-motions/SKILL.md` is a wrapper: Step 0 (identify client, resolve plugin or standalone official skills) plus the layer over `slideshow` - root clock, single-file runtime include, frozen CSS transitions, mid-point rest frame, `present` serving the raw root `index.html`, run from the parent folder - and a reading table into the official skill folders | implemented, static checks 2026-11-14 |
 | `references/resolve-upstream.md` holds Step 0 in full: client, search locations, mode | implemented, static checks 2026-11-14 |
 | `references/install-upstream.md` holds the install routes per client and scope, asked before running, and the fallback when a plugin source is blocked by policy (SLM-D11) | implemented; in Claude Code 2026-11-14 the plugin route failed on an enterprise policy block and the standalone project route `npx skills add ... --agent claude-code -y` installed the four skills; other routes not run |
@@ -44,4 +44,5 @@ A user types `/slide-motions` in any supported agent client and gets a deck work
 - `SKILL.md` carries no `../` path and no hardcoded path into another skill's folder; Step 0 lists search locations, not dependencies.
 - ASCII hyphen only and no hard-wrapped paragraph in own files.
 - Apache-2.0 for own work; `AGENTS.md` names the upstream source and the frontmatter names the paired tag (SLM-D3).
+- A change to `slide-motions/scripts/` is tried in a real deck repository and its copies there stay byte-identical (`AGENTS.md`).
 - No commit and no push without the user's authorization.

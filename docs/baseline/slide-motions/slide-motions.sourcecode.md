@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "sourcecode"
 status: "active"
 updated: "2026-11-15"
-code_ref: "85d28ca"
+code_ref: "uncommitted"
 ---
 
 # slide-motions - Source Layout
@@ -19,6 +19,8 @@ code_ref: "85d28ca"
 | `slide-motions/references/resolve-upstream.md` | Own work: Step 0 in full (client, search locations, mode) |
 | `slide-motions/references/install-upstream.md` | Own work: install routes per client and scope, asked before running |
 | `slide-motions/references/project-workflow.md` | Own work: Step 1 in full (stage, intake, content file, folder layout, generator, toolchain, `.gitignore`, README) |
+| `slide-motions/references/deck-site.md` | Own work: cover thumbnails, the homepage of all decks, the GitHub Pages deploy, `slide/site.json`, install into a deck repository, verification |
+| `slide-motions/scripts/` | Own work, copied unchanged into a deck repository (SLM-D31): `decks.mjs` (finds decks), `thumbs.mjs` (`npm run thumbs`), `build-site.mjs` (`npm run site`), `pages.yml` (becomes `.github/workflows/pages.yml`); each headed `slide-motions site v1` |
 | `AGENTS.md` | Rules for an agent improving the skill: where a change goes, constraints, checks, upstream pairing and update procedure, pack records, approval |
 | `README.md`, `LICENSE` | Repo front page, Apache-2.0 text for own work |
 | `assets/` | README images: WebP and GIF pairs (light, dark), `banner-social.png` for the GitHub social preview |
@@ -27,4 +29,4 @@ code_ref: "85d28ca"
 
 ## Reading flow
 
-The agent loads `SKILL.md`, which sends it first to `references/resolve-upstream.md` (Step 0): identify its client, find `slideshow` and `hyperframes` (skill list, plugin root, standalone stores), and read `references/install-upstream.md` only when they are missing. Step 1 sends it to `references/project-workflow.md` before any file is written, to settle the stage and where content and decks go. It then reads the stock `slideshow` skill and applies the layer in `SKILL.md`. The reading table sends it to one file per need inside the official skill folders found in Step 0. `live-motion.md` is read only when the deck should animate while presented; the official `slideshow` skill's `references/standalone-harness.md` only for a deck opened without `present`, with the npm script paths given in the reading table.
+The agent loads `SKILL.md`, which sends it first to `references/resolve-upstream.md` (Step 0): identify its client, find `slideshow` and `hyperframes` (skill list, plugin root, standalone stores), and read `references/install-upstream.md` only when they are missing. Step 1 sends it to `references/project-workflow.md` before any file is written, to settle the stage and where content and decks go. It then reads the stock `slideshow` skill and applies the layer in `SKILL.md`. The reading table sends it to one file per need inside the official skill folders found in Step 0. `deck-site.md` is read once a deck is built and the person wants its cover, a homepage or a deploy; it sends the agent to the engine files in `scripts/`. `live-motion.md` is read only when the deck should animate while presented; the official `slideshow` skill's `references/standalone-harness.md` only for a deck opened without `present`, with the npm script paths given in the reading table.

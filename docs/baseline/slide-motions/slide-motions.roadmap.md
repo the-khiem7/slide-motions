@@ -4,7 +4,7 @@ pack: "slide-motions"
 document: "roadmap"
 status: "active"
 updated: "2026-11-15"
-code_ref: "85d28ca"
+code_ref: "uncommitted"
 ---
 
 # slide-motions - Roadmap
@@ -20,15 +20,16 @@ code_ref: "85d28ca"
 | SLM-P5 | README front page with illustrations | SLM-P1 | complete |
 | SLM-P6 | Deck project workflow and lessons from the vLLM deck | SLM-P1 | complete |
 | SLM-P7 | GitHub Pages deploy pilot in S4 | SLM-P6 | in progress |
-| SLM-P8 | Carry deploy and thumbnail into the skill | SLM-P7 | planned |
+| SLM-P8 | Carry deploy and thumbnail into the skill | SLM-P7 | in progress |
 
 ## Next action
 
 Phase 7 (SLM-P7, GitHub Pages deploy pilot), in `C:\.repos\Personal\S4`:
 
-- Steps 1 to 6 of SLM-P7 are done in the S4 working tree. The user commits S4 with `commit-composer` and pushes it; the agent does neither.
-- The user switches Pages to "GitHub Actions" by hand (SLM-D23). After the push, check the workflow run and the live site against the SLM-P7 acceptance, then start SLM-P8.
-- In this repository SLM-P6 and the SLM-P7 plan were committed outside this thread (`81c2a26` to `85d28ca`, not pushed); commit or push nothing further until the user asks.
+- Steps 1 to 6 of SLM-P7 are done in the S4 working tree. The user commits S4 with `commit-composer` and pushes it; the agent does neither. S4's `.github/workflows/pages.yml` changed after the plan (SLM-D27 and SLM-D29 amendments) and the copy in `slide-motions/scripts/` equals it: commit both.
+- The user switches Pages to "GitHub Actions" by hand (SLM-D23). After the push, check the workflow run and the live site against the SLM-P7 acceptance and the live part of the SLM-P8 acceptance.
+- SLM-P8 files are in this repository's working tree, uncommitted: commit them when the user asks. Earlier commits `81c2a26` to `b3c6d8c` are not pushed.
+- Open: SLM-Q4 (the engine under a split toolchain) and SLM-Q2 (licence).
 - Never use `npx skills add` or `update` for this skill.
 
 ## SLM-P1: Phase 1 - Build the wrapper
@@ -91,10 +92,14 @@ Phase 7 (SLM-P7, GitHub Pages deploy pilot), in `C:\.repos\Personal\S4`:
 - Status: in progress; steps 1 to 6 done in the S4 working tree, uncommitted; step 7 waits for the user.
 - Evidence, 2026-11-15 in S4: `npm run thumbs` wrote `cover.webp` for restaurant (7.5 s, 15 KB) and llmhotel48 (9.5 s, 30 KB) in 24 s; `sharp` `^0.35.5`, deduplicated with the copy `hyperframes` already pulls in. `npm run site` built `_site/` (2.5 MB, 2 decks, 1 not built) in 1.6 s with the rewrite counts 1, 1 and 5. Local test, `_site` served under `/vllm-highlevel-understanding/` and driven by `puppeteer-core` with Chrome: homepage 3 cards, both thumbnails, Be Vietnam Pro 400, 600 and 800 loaded, no horizontal scroll at 390 px; the restaurant deck at 1/23, three ArrowRight moved it and its `?mode=audience` tab to slide 4; P opened one more audience tab and turned the deck tab into the presenter view with notes; no page or console error; the only 404s are the four optional `composition/sfx/*.mp3` clips the shell requests. Re-running both `build.mjs` left `slide/` unchanged; `hyperframes lint` exits 0 on both decks; the workflow parses as YAML (PyYAML). Not run: `actionlint` (blocked by a local hook), the workflow on GitHub, the live site.
 - Refactor to the shared engine (SLM-D31), 2026-11-15: S4 values moved to `slide/site.json`; `npm run site` and the local test give the same result as above; without `slide/site.json` the build falls back to the repository name, English labels, system font and the neutral theme. `titleHighlight` keeps the gradient on the word "S4" alone, as before; local test rerun with the same result.
+- Workflow changes after the refactor, 2026-11-15 (amendments to SLM-D27 and SLM-D29): the rebuild loop skips a deck with no `src/build.mjs` (observed: the old loop exits 1 under `bash -e`, the guarded one exits 0), and `configure-pages` is dropped. The workflow still parses as YAML (PyYAML); the run on GitHub is not observed.
 - Acceptance: the live homepage lists both decks with thumbnails; "Open deck" presents with Present and notes; "Audience" follows the deck tab in the same browser; the workflow passes on `main`.
 - Decisions: SLM-D23 to SLM-D29.
 
 ## SLM-P8: Phase 8 - Carry deploy and thumbnail into the skill
 
 - Deliver: the engine files from S4 in `slide-motions/scripts/` with the `slide/site.json` contract (SLM-D31) and a layout row in `AGENTS.md`; a reference for the site build (shell capture, pathname rule, same-browser sync limit, setup of `site.json` from `deck.css`); `references/project-workflow.md` gains the thumbnail step after each build and a Deploy stage; README feature list; `AGENTS.md` layout rule checked before any new template folder.
-- Status: planned; starts once SLM-P7 passes its acceptance.
+- Status: in progress. Delivered 2026-11-15, uncommitted: `slide-motions/scripts/` (`decks.mjs`, `thumbs.mjs`, `build-site.mjs`, `pages.yml`, header `slide-motions site v1`), `references/deck-site.md`, a `SKILL.md` description, Step 1 sentence and reading-table row, `project-workflow.md` (Publish stage, thumbnail and `site.json` paths, `_site/` in `.gitignore`, cover gallery in the README), `README.md` bullets and layout rows, and `AGENTS.md` (layout row, engine check, update step, remote line corrected).
+- Evidence: the four engine files are byte-identical to S4's (`cmp`). Installed by the steps of `deck-site.md` into a fresh scratch repository (no `slide/site.json`, no `src/build.mjs`, `origin` `https://github.com/someone/demo-decks.git`, `node_modules` junctioned to S4's): `npm run site` built it with title `demo-decks`, `lang` en, a not-built card linking `blob/main/content/demo/other.md`, and `npm run thumbs` wrote a 15 KB `cover.webp`; the scratch repository and the junction were removed and S4's `node_modules` checked intact. `AGENTS.md` checks: no `../` in `SKILL.md`, every named reference present and every reference named, 15 official paths ok at `v0.9.41`, no en or em dash, description 869 characters. Lesson for the verification text: cover images use `loading="lazy"`; right after `load` they read `complete` false and width 0, and 960 after 1.5 s.
+- Acceptance: the live site of SLM-P7 builds from the files in `slide-motions/scripts/`; a fresh session installs them from `deck-site.md`.
+- Not run: the workflow on GitHub, the live site, a fresh session reading `deck-site.md`, an engine run in a repository other than S4 with a real `site.json` of another look, the split toolchain (SLM-Q4).
