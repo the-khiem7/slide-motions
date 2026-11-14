@@ -84,5 +84,5 @@ Good candidates are motion that carries meaning: packets flowing in the directio
 ## Verify
 
 - `npx hyperframes check` stays at its previous findings: the live code never runs there.
-- Against `npx hyperframes present`, drive the deck with puppeteer, find the frame whose URL contains `/composition/index.html`, and read numbers rather than screenshots: an element's opacity right after a key press and again 1.5 s later (playthrough), and a loop target's `transform` or `strokeDashoffset` twice 0.7 s apart (ambient).
+- Against `npx hyperframes present`, drive the deck with puppeteer. `puppeteer-core` ships among the installed `hyperframes` package's dependencies, so no extra install is needed; launch it with the local Chrome or Edge as `executablePath`. Load the page with `waitUntil: "domcontentloaded"` and then wait about 6 s: `networkidle0` and `networkidle2` never resolve against `present`, which keeps a connection open, so the run times out. Then find the frame whose URL contains `/composition/index.html`, and read numbers rather than screenshots: an element's opacity right after a key press and again 1.5 s later (playthrough), and a loop target's `transform` or `strokeDashoffset` twice 0.7 s apart (ambient).
 - If the ambient numbers do not change in a headless run, first rule out a `prefers-reduced-motion` gate.
