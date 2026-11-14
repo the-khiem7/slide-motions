@@ -23,6 +23,12 @@ Everything the HyperFrames slideshow gives you comes along:
 - presenter mode with speaker notes, served by `hyperframes present`
 - turning an existing page into a deck, keeping its look, motion and media
 
+And it runs the project around the deck:
+
+- from an idea: a content file with the table of contents, the script and sourced figures, approved before anything is built
+- one folder per content file, so a second version of a topic never overwrites the first
+- one shared toolchain, a `.gitignore`, and a README that lists every deck with the command that serves it
+
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="assets/ic-how-dark.webp"><img src="assets/ic-how.webp" alt="" height="32" align="top"></picture> How it works
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/fig-layers-dark.webp"><img src="assets/fig-layers.webp" alt="Two stacked layers. On top, a transparent sheet with the SlideMotions logo, the layer on top: finds the official skills, or installs them with your OK; adds the rules a live deck needs; adds motion while you present. Underneath, the HyperFrames logo and its official skills, read from where you installed them: slideshow, hyperframes, hyperframes-cli, hyperframes-registry, media-use." width="100%"></picture>
@@ -74,10 +80,11 @@ Open the URL it prints, then click Present, or press P, to open the audience tab
 
 | Path | Content |
 |---|---|
-| `slide-motions/SKILL.md` | The skill: finding the official skills, then the rules for slides, the root clock, the runtime include, fragments, hotspots and hand-off |
+| `slide-motions/SKILL.md` | The skill: finding the official skills, detecting the stage, then the rules for slides, the root clock, the runtime include, fragments, hotspots and hand-off |
 | `slide-motions/references/live-motion.md` | Entrances that play at real speed and ambient loops in the presented deck, with code |
 | `slide-motions/references/resolve-upstream.md` | Finding the official skills: client, search locations, mode |
 | `slide-motions/references/install-upstream.md` | Installing the official skills per client and scope, asked before running |
+| `slide-motions/references/project-workflow.md` | The project around a deck: stage, intake questions, content file, folder layout, toolchain, `.gitignore`, README |
 | `AGENTS.md` | Rules for an agent that improves this skill |
 | `assets/` | README images; their HTML sources are in `assets/source/` |
 

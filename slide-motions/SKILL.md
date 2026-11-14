@@ -1,6 +1,6 @@
 ---
 name: slide-motions
-description: Build a HyperFrames slideshow to present live - slides, fragment reveals, branching hotspots, presenter mode with speaker notes, and motion that plays in the presented deck (entrances at real speed, ambient loops) - served by `hyperframes present`, or turn an existing page into one. Use when the person wants a deck or presentation rather than a rendered video, or asks for a HyperFrames slideshow with animation. A wrapper over the official HyperFrames skills: it resolves them first, installs them with the person's approval when missing, then layers the live-motion rules on top of the stock slideshow skill.
+description: Build a HyperFrames slideshow to present live - slides, fragment reveals, presenter mode with speaker notes, and motion that plays in the presented deck (entrances at real speed, ambient loops) - served by `hyperframes present`, or turn an existing page into one. Also runs the deck project from an idea or a content file - brainstormed content and script, one folder per deck, shared toolchain, .gitignore and a README listing every deck. Use when the person wants a deck or presentation rather than a rendered video, or asks for a HyperFrames slideshow with animation. A wrapper over the official HyperFrames skills: it resolves them first, installs them with the person's approval when missing, then layers the live-motion rules on top of the stock slideshow skill.
 metadata:
   upstream-hyperframes-version: "v0.9.41"
 ---
@@ -14,6 +14,10 @@ This skill is a layer on the official HyperFrames `slideshow` skill. It does not
 Read `references/resolve-upstream.md` and complete it first. It identifies your client, finds `slideshow` and `hyperframes` (skill list, plugin root, standalone stores), and installs them with the person's approval when missing (`references/install-upstream.md`). Do not start the deck until `slideshow` and `hyperframes` are readable, and read the stock `slideshow` skill in full before applying the changes below.
 
 Carry the mode found in Step 0 through the session. In plugin mode every `npx hyperframes` below becomes `node "<PLUGIN_ROOT>/skills/hyperframes/scripts/plugin-cli.mjs"` and `hyperframes skills update`, `skills check` and `npx skills add` are never run; in standalone mode `npx hyperframes` is used.
+
+## Step 1 - Detect the stage (before writing any file)
+
+Read `references/project-workflow.md`. It decides whether this is a brainstorm, a review of a given content file, a rebuild or a new deck, asks the intake questions (languages, talk duration, speakers, audience), and fixes where files go: content in `content/<topic>/<variant>.md`, the deck in `slide/<topic>/<variant>/`, one toolchain at the repository root, `.gitignore` and a README listing every deck. Without it a second content file on the same topic overwrites or collides with the first deck.
 
 ## Where to read more
 
@@ -30,6 +34,7 @@ Paths are inside the official skill folders found in Step 0.
 | Sound effects for a standalone deck | `media-use` `references/resolve.md` |
 | Inside a HyperFrames plugin | `hyperframes` `references/plugin-installation.md` |
 | Motion that plays in the presented deck | `references/live-motion.md` (this skill) |
+| Stage, intake, content file, folder layout, toolchain, `.gitignore`, README | `references/project-workflow.md` (this skill) |
 | A deck opened without `present` | `slideshow` `references/standalone-harness.md`. Its script paths into the HyperFrames monorepo (`packages/player/dist/...`) do not exist for an npm user: use `node_modules/hyperframes/dist/hyperframes-player.global.js` and `node_modules/hyperframes/dist/hyperframes-slideshow.global.js`, copied from the installed package `dist` folder when the project has no `node_modules` |
 | Finding the official skills | `references/resolve-upstream.md` (this skill) |
 | Installing the official skills | `references/install-upstream.md` (this skill) |
