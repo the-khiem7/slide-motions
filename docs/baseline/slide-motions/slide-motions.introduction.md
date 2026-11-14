@@ -27,6 +27,7 @@ One agent skill, `slide-motions`: build a HyperFrames slideshow that presents li
 | The FireHydra vendor copies `.agents/skills/slideshow` and `.claude/skills/slideshow` equal the committed v0.9.41 | implemented |
 | Junctions `slide-motions` exist under the `agents` and `claude` skill targets | planned, awaiting approval of `Junction.ps1 -Mode Apply` |
 | `/slide-motions` is listed in a fresh session and drives a deck build | unverified |
+| `README.md` is a pitch page for the brand SlideMotions (SLM-D8) with illustrations from `assets/source/readme.html`; it documents the install as `npx skills add the-khiem7/slide-motions` (SLM-D6) | implemented 2026-11-14, not viewed on github.com; the command needs the repo pushed under that path |
 | The attribution in `AGENTS.md` is enough for the text derived from the official `slideshow` skill | unverified, see SLM-Q2 in `hallucination` |
 
 ## Target
@@ -35,7 +36,7 @@ A user types `/slide-motions` in any supported agent client and gets a deck work
 
 ## Constraints
 
-- Install by the junction tool in `C:\.repos\Skills\.Junction`, never `npx skills add` or `update`, which overwrite a junction with a copy.
+- On the owner's machine, install by the junction tool in `C:\.repos\Skills\.Junction`, never `npx skills add` or `update`, which overwrite a junction with a copy. Readers of the README install with `npx skills add` (SLM-D6).
 - The skill carries no copy of the official neighbour guidance; its reading table names paths inside the official skill folders found in Step 0.
 - Installing the official skills asks the person for consent and scope first, and follows the route of the client the agent runs in; a plugin install is never touched by `skills update`.
 - `SKILL.md` carries no `../` path and no hardcoded path into another skill's folder; Step 0 lists search locations, not dependencies.

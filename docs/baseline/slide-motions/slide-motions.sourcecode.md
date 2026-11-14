@@ -20,6 +20,8 @@ code_ref: "uncommitted"
 | `slide-motions/references/install-upstream.md` | Own work: install routes per client and scope, asked before running |
 | `AGENTS.md` | Rules for an agent improving the skill: where a change goes, constraints, checks, upstream pairing and update procedure, pack records, approval |
 | `README.md`, `LICENSE` | Repo front page, Apache-2.0 text for own work |
+| `assets/` | README images: WebP and GIF pairs (light, dark), `banner-social.png` for the GitHub social preview |
+| `assets/source/` | HTML sources of those images (`readme.html` with the signature note and render commands, `shared.css`, `shared.js`) and `brand/hyperframes-logo.svg` (SLM-D5); outside the skill folder, so never linked into agent skill stores |
 | `docs/baseline/slide-motions/` | This pack |
 
 ## Reading flow
