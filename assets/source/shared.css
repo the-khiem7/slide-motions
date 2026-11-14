@@ -1,0 +1,41 @@
+/* Tokens and type for the slide-motions README illustrations.
+   Contract with render.py: .item blocks with unique ids inside .sheet, zoom 2, theming through
+   html[data-theme="dark"], --cardline as the border color of the finished image. */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&family=Fraunces:ital,opsz,wght@1,9..144,600&display=block");
+
+:root {
+  --paper: #f6faf9; --panel: #ffffff; --ink: #0c1416; --muted: #4d5b5f; --cardline: #cfdcd9;
+  --slide: #e9f0ef; --slideline: #c3d2cf; --slidebar: #b9cac6;
+  --acetate: rgba(6, 227, 250, .10); --acetateline: rgba(6, 150, 170, .6);
+  --cyan: #06E3FA; --green: #4FDB5E; --accentink: #0a7d6c; --chipbg: #e3f4f1; --trail: #0cc6c0; --magic-a: #3ee6a8; --magic-b: #7bf08a;
+}
+html[data-theme="dark"] {
+  --paper: #0a1013; --panel: #111a1e; --ink: #e6f0ee; --muted: #a3b3b6; --cardline: #24343a;
+  --slide: #142026; --slideline: #2a3d44; --slidebar: #2f454d;
+  --acetate: rgba(6, 227, 250, .09); --acetateline: rgba(6, 227, 250, .6);
+  --accentink: #5fe39a; --chipbg: #12292b; --trail: #22e0c8; --magic-a: #3ee6a8; --magic-b: #7bf08a;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: #888; }
+.sheet { width: max-content; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.item {
+  zoom: 2; position: relative; overflow: hidden; width: 1200px;
+  font-family: "Inter", sans-serif; color: var(--ink); background: var(--paper);
+}
+.display { font-family: "Inter", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+/* Outfit 800 stands in for the HyperFrames wordmark face; it is used for the SlideMotions wordmark and nothing else. */
+.brand { font-family: "Outfit", sans-serif; font-weight: 800; letter-spacing: -0.035em; }
+.lockup { display: inline-flex; align-items: center; gap: .2em; }
+.lockup svg { height: .74em; width: .67em; flex: none; overflow: visible; }
+.mono { font-family: "IBM Plex Mono", monospace; }
+/* Fraunces italic is the brand signature for the one emphasised word of the tagline. */
+.serif { font-family: "Fraunces", serif; font-style: italic; font-weight: 600; }
+/* Brand-green text, the same bright stops on both grounds. */
+.magic { background: linear-gradient(100deg, var(--magic-a), var(--magic-b)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grad-text { background: linear-gradient(100deg, var(--cyan), var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.powered { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; color: var(--muted); }
+.hf-logo { display: inline-block; color: var(--ink); line-height: 0; }
+.hf-logo svg { height: 100%; width: auto; }
+svg.art { position: absolute; inset: 0; }
+.abs { position: absolute; }

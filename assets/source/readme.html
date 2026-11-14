@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SlideMotions README illustrations</title>
+<!-- Source of ../<id>.webp and ../<id>-dark.webp (banner-social: ../banner-social.png). Render from the repo root with:
+       uvx --from playwright --with pillow python -I <frontdoor-illustrate>/scripts/render.py assets/source/readme.html --root assets --out assets
+     Moving versions (banner, fig-motion) with:
+       uvx --from playwright --with pillow python -I <frontdoor-readme>/scripts/animate.py assets/source/readme.html --root assets --item banner --call "drawBanner({v}, 90)" --name banner --out assets
+       uvx --from playwright --with pillow python -I <frontdoor-readme>/scripts/animate.py assets/source/readme.html --root assets --item fig-motion --call "drawMotion({v}, 90)" --name fig-motion --out assets
+     The draw functions ignore the sine value and count frames instead, so the motion runs one way and the loop restarts cleanly.
+
+     Signature note
+     Concept: an overhead-projector transparency; the HyperFrames slide sits underneath, SlideMotions is the acetate laid on top that makes it move.
+     Shape language: rounded play triangles, translucent offset sheets, dotted motion trails with round caps, onion-skin ghosts for movement.
+     Typeface: the HyperFrames system. Outfit 800 for the SlideMotions wordmark only (closest free match to the HyperFrames wordmark face, ABC Solar Display 600), Fraunces italic for the word "move" in the tagline, the brand signature; Inter for every other word, IBM Plex Mono for skill and command names.
+     Palette logic: the HyperFrames cyan-to-green gradient (#06E3FA to #4FDB5E) is borrowed on purpose, so the wrapper reads as part of the HyperFrames family; greys carry the upstream slide, gradient carries motion.
+     Logo: the gradient play triangle plus SlideMotions, set at the HyperFrames logo cap height wherever both appear, so the pair reads as parent and subsidiary.
+     Presentation: every picture is a projected slide with a layer on top; few words, each taken from SKILL.md or live-motion.md.
+     What it is not: no blue-purple gradient, no soft-shadow card grids, no stock icons, no HeyGen product screenshots. -->
+<script src="shared.js"></script>
+<link rel="stylesheet" href="shared.css">
+<style>
+  .name { font-size: 66px; line-height: .95; margin: 0; }
+  .tag { font-size: 33px; font-weight: 500; line-height: 1.25; margin: 0; letter-spacing: -0.01em; }
+  .copy { position: absolute; display: flex; flex-direction: column; gap: 16px; }
+  .panel-h { font-family: "Inter", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: -0.02em; }
+  .cap { font-size: 19px; color: var(--muted); line-height: 1.35; }
+  .chips { position: absolute; display: flex; flex-wrap: wrap; gap: 12px; }
+  .chips .break { flex-basis: 100%; height: 0; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 500; color: var(--ink); background: var(--panel); border: 1.5px solid var(--cardline); border-radius: 999px; padding: 7px 16px; white-space: nowrap; }
+  .chip.mono { font-size: 17px; background: var(--chipbg); border-color: transparent; color: var(--accentink); }
+  .layer-h { font-family: "Inter", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 12px; }
+  .btn { display: flex; align-items: center; justify-content: center; gap: 10px; height: 100%; font-family: "Inter", sans-serif; font-weight: 700; font-size: 21px; letter-spacing: -0.01em; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06E3FA"/><stop offset="1" stop-color="#4FDB5E"/></linearGradient>
+    <linearGradient id="gh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#06E3FA"/><stop offset="1" stop-color="#4FDB5E"/></linearGradient>
+    <symbol id="tri" viewBox="-12 -12 112 124"><polygon points="0,0 0,100 86,50" fill="url(#g)" stroke="url(#g)" stroke-width="22" stroke-linejoin="round"/></symbol>
+    <symbol id="tri-line" viewBox="-12 -12 112 124"><polygon points="0,0 0,100 86,50" fill="none" stroke="currentColor" stroke-width="12" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+<div class="sheet">
+
+<!-- Hero banner. drawBanner moves the triangle onto the acetate with onion-skin ghosts, holds while the trails flow, then fades. -->
+<div class="item" id="banner" style="height: 420px">
+  <svg class="art" viewBox="0 0 1200 420">
+    <defs><clipPath id="b-clip"><rect width="440" height="270" rx="10"/></clipPath></defs>
+    <g transform="translate(650 96)">
+      <rect width="460" height="258" rx="12" fill="var(--slide)" stroke="var(--slideline)" stroke-width="2"/>
+      <rect x="34" y="40" width="200" height="22" rx="6" fill="var(--slidebar)"/>
+      <rect x="34" y="78" width="300" height="12" rx="6" fill="var(--slidebar)" opacity=".7"/>
+      <rect x="34" y="100" width="260" height="12" rx="6" fill="var(--slidebar)" opacity=".7"/>
+      <rect x="34" y="150" width="120" height="74" rx="8" fill="none" stroke="var(--slideline)" stroke-width="2"/>
+      <rect x="170" y="150" width="120" height="74" rx="8" fill="none" stroke="var(--slideline)" stroke-width="2"/>
+    </g>
+    <g transform="translate(700 52) rotate(-5)">
+      <rect width="440" height="270" rx="10" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="2"/>
+      <path d="M440 236 L406 270" stroke="var(--acetateline)" stroke-width="2"/>
+      <g clip-path="url(#b-clip)">
+        <g id="b-trail" stroke="var(--trail)" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 16">
+          <line x1="70" y1="112" x2="230" y2="112"/><line x1="40" y1="140" x2="230" y2="140"/><line x1="90" y1="168" x2="230" y2="168"/>
+        </g>
+        <g id="b-ghosts"></g>
+        <use id="b-tri" href="#tri" x="246" y="70" width="120" height="132"/>
+      </g>
+    </g>
+  </svg>
+  <div class="copy" style="left: 64px; top: 108px">
+    <h1 class="name brand lockup"><svg><use href="#tri" width="100%" height="100%"/></svg>SlideMotions</h1>
+    <p class="tag">Slide decks that <span class="serif grad-text" style="font-size: 38px">move</span><br>the moment you present.</p>
+    <span class="powered">powered by <span class="hf-logo" style="height: 28px"></span></span>
+  </div>
+</div>
+
+<!-- GitHub social preview: the banner recomposed at 2:1, text enlarged and heavier so it still reads as a chat-app thumbnail. -->
+<div class="item" id="banner-social" data-social style="width: 640px; height: 320px">
+  <svg class="art" viewBox="0 0 640 320">
+    <defs><clipPath id="s-clip"><rect width="440" height="270" rx="10"/></clipPath></defs>
+    <g transform="translate(40 66) scale(.5)">
+      <g transform="translate(650 96)">
+        <rect width="460" height="258" rx="12" fill="var(--slide)" stroke="var(--slideline)" stroke-width="3"/>
+        <rect x="34" y="40" width="200" height="22" rx="6" fill="var(--slidebar)"/>
+        <rect x="34" y="78" width="300" height="12" rx="6" fill="var(--slidebar)" opacity=".7"/>
+        <rect x="34" y="100" width="260" height="12" rx="6" fill="var(--slidebar)" opacity=".7"/>
+        <rect x="34" y="150" width="120" height="74" rx="8" fill="none" stroke="var(--slideline)" stroke-width="3"/>
+        <rect x="170" y="150" width="120" height="74" rx="8" fill="none" stroke="var(--slideline)" stroke-width="3"/>
+      </g>
+      <g transform="translate(700 52) rotate(-5)">
+        <rect width="440" height="270" rx="10" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="3"/>
+        <path d="M440 236 L406 270" stroke="var(--acetateline)" stroke-width="3"/>
+        <g clip-path="url(#s-clip)">
+          <g stroke="var(--trail)" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 18">
+            <line x1="70" y1="112" x2="230" y2="112"/><line x1="40" y1="140" x2="230" y2="140"/><line x1="90" y1="168" x2="230" y2="168"/>
+          </g>
+          <use href="#tri" x="246" y="70" width="120" height="132"/>
+        </g>
+      </g>
+    </g>
+  </svg>
+  <div class="copy" style="left: 40px; top: 46px; gap: 12px">
+    <h1 class="name brand" style="font-size: 62px; line-height: .92"><span class="lockup" style="gap: .14em">Slide<svg><use href="#tri" width="100%" height="100%"/></svg></span><br>Motions</h1>
+    <p class="tag" style="font-size: 25px; font-weight: 600; line-height: 1.22">Slide decks that <span class="serif grad-text" style="font-size: 29px">move</span><br>the moment you present.</p>
+    <span class="powered" style="font-size: 17px; font-weight: 500; gap: 8px">powered by <span class="hf-logo" style="height: 22px"></span></span>
+  </div>
+</div>
+
+<!-- What it does: stock slideshow seeks to the hold, the layer plays the entrance and keeps ambient loops running. -->
+<div class="item" id="fig-motion" style="height: 540px">
+  <div class="abs panel-h" style="left: 60px; top: 34px; color: var(--muted)">Stock slideshow</div>
+  <div class="abs panel-h" style="left: 640px; top: 32px; display: flex; align-items: center; gap: 12px"><span>With</span><span class="brand lockup" style="font-size: 32px"><svg><use href="#tri" width="100%" height="100%"/></svg><span class="magic">SlideMotions</span></span></div>
+  <svg class="art" viewBox="0 0 1200 540">
+    <g transform="translate(60 92)" id="m-left">
+      <rect width="500" height="280" rx="12" fill="var(--slide)" stroke="var(--slideline)" stroke-width="2"/>
+      <g class="m-content">
+        <rect x="40" y="40" width="220" height="24" rx="6" fill="var(--slidebar)"/>
+        <rect x="40" y="80" width="300" height="12" rx="6" fill="var(--slidebar)" opacity=".7"/>
+        <rect x="40" y="130" width="150" height="110" rx="10" fill="none" stroke="var(--slideline)" stroke-width="2.5"/>
+        <rect x="300" y="130" width="160" height="110" rx="10" fill="none" stroke="var(--slideline)" stroke-width="2.5"/>
+        <line x1="190" y1="185" x2="300" y2="185" stroke="var(--slidebar)" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="380" cy="185" r="12" fill="var(--slidebar)"/>
+      </g>
+    </g>
+    <g transform="translate(640 92)" id="m-right">
+      <rect width="500" height="280" rx="12" fill="var(--slide)" stroke="var(--slideline)" stroke-width="2"/>
+      <rect id="r-title" x="40" y="40" width="220" height="24" rx="6" fill="url(#gh)"/>
+      <rect id="r-text" x="40" y="80" width="300" height="12" rx="6" fill="var(--slidebar)"/>
+      <rect id="r-card1" x="40" y="130" width="150" height="110" rx="10" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="2.5"/>
+      <rect id="r-card2" x="300" y="130" width="160" height="110" rx="10" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="2.5"/>
+      <line id="r-flow" x1="190" y1="185" x2="300" y2="185" stroke="var(--trail)" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14"/>
+      <circle id="r-ping" cx="380" cy="185" r="12" fill="none" stroke="#06E3FA" stroke-width="3"/>
+      <circle id="r-dot" cx="380" cy="185" r="12" fill="url(#g)"/>
+      <use id="r-tri" href="#tri" x="88" y="160" width="46" height="50"/>
+    </g>
+    <!-- timelines: the left playhead jumps to the hold, the right one travels there -->
+    <g transform="translate(80 412)">
+      <line x1="0" y1="0" x2="460" y2="0" stroke="var(--slideline)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="322" y1="-12" x2="322" y2="12" stroke="var(--muted)" stroke-width="3" stroke-linecap="round"/>
+      <circle id="l-head" cx="322" cy="0" r="10" fill="var(--muted)"/>
+    </g>
+    <g transform="translate(660 412)">
+      <line x1="0" y1="0" x2="460" y2="0" stroke="var(--slideline)" stroke-width="4" stroke-linecap="round"/>
+      <line id="r-progress" x1="0" y1="0" x2="322" y2="0" stroke="var(--trail)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="322" y1="-12" x2="322" y2="12" stroke="var(--muted)" stroke-width="3" stroke-linecap="round"/>
+      <circle id="r-head" cx="322" cy="0" r="10" fill="#06E3FA"/>
+    </g>
+  </svg>
+  <div class="abs cap" style="left: 60px; top: 446px; width: 500px">Navigation seeks straight to the hold.<br>Every slide lands as a finished still.</div>
+  <div class="abs cap" style="left: 640px; top: 446px; width: 520px; color: var(--ink)">The entrance plays at real speed to the hold,<br>then ambient loops keep running while you talk.</div>
+</div>
+
+<!-- How it works: the official HyperFrames skills underneath, slide-motions as the acetate layer on top. -->
+<div class="item" id="fig-layers" style="height: 440px">
+  <svg class="art" viewBox="0 0 1200 440">
+    <rect x="150" y="236" width="960" height="168" rx="16" fill="var(--slide)" stroke="var(--slideline)" stroke-width="2"/>
+    <rect x="90" y="40" width="960" height="220" rx="16" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="2.5"/>
+    <path d="M1050 220 L1010 260" stroke="var(--acetateline)" stroke-width="2.5"/>
+    <g stroke="var(--trail)" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 13">
+      <line x1="830" y1="96" x2="930" y2="96"/><line x1="800" y1="118" x2="930" y2="118"/>
+    </g>
+    <use href="#tri" x="942" y="72" width="62" height="68"/>
+  </svg>
+  <div class="abs layer-h" style="left: 130px; top: 66px"><span class="brand lockup" style="font-size: 34px"><svg><use href="#tri" width="100%" height="100%"/></svg>SlideMotions</span><span class="cap" style="font-weight: 500; letter-spacing: 0">the layer on top</span></div>
+  <div class="chips" style="left: 130px; top: 128px; width: 880px">
+    <span class="chip">Finds the official skills, or installs them with your OK</span><span class="break"></span>
+    <span class="chip">Adds the rules a live deck needs</span><span class="chip">Adds motion while you present</span>
+  </div>
+  <div class="abs layer-h" style="left: 190px; top: 284px"><span class="hf-logo" style="height: 40px"></span><span class="cap" style="font-weight: 500; letter-spacing: 0">official skills, read from where you installed them</span></div>
+  <div class="chips" style="left: 190px; top: 340px; width: 890px">
+    <span class="chip mono">slideshow</span><span class="chip mono">hyperframes</span><span class="chip mono">hyperframes-cli</span><span class="chip mono">hyperframes-registry</span><span class="chip mono">media-use</span>
+  </div>
+</div>
+
+<!-- Section icons, shown at 32 px beside each heading. -->
+<div class="item" id="ic-does" style="width: 64px; height: 64px">
+  <svg class="art" viewBox="0 0 64 64">
+    <g stroke="var(--trail)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="1 7"><line x1="8" y1="26" x2="24" y2="26"/><line x1="12" y1="38" x2="24" y2="38"/></g>
+    <use href="#tri" x="26" y="16" width="30" height="33"/>
+  </svg>
+</div>
+<div class="item" id="ic-how" style="width: 64px; height: 64px">
+  <svg class="art" viewBox="0 0 64 64">
+    <rect x="16" y="22" width="38" height="28" rx="5" fill="var(--slide)" stroke="var(--slideline)" stroke-width="2"/>
+    <rect x="9" y="12" width="38" height="28" rx="5" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="2"/>
+    <use href="#tri" x="23" y="18" width="14" height="16"/>
+  </svg>
+</div>
+<div class="item" id="ic-install" style="width: 64px; height: 64px">
+  <svg class="art" viewBox="0 0 64 64">
+    <g transform="rotate(90 32 26)"><use href="#tri" x="18" y="12" width="26" height="29"/></g>
+    <path d="M14 44 V50 H50 V44" fill="none" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+<div class="item" id="ic-use" style="width: 64px; height: 64px">
+  <svg class="art" viewBox="0 0 64 64">
+    <rect x="9" y="12" width="46" height="30" rx="5" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+    <path d="M32 42 V52 M22 52 H42" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/>
+    <use href="#tri" x="26" y="18" width="16" height="18"/>
+  </svg>
+</div>
+<div class="item" id="ic-wont" style="width: 64px; height: 64px">
+  <svg class="art" viewBox="0 0 64 64">
+    <use href="#tri" x="20" y="15" width="30" height="33" opacity=".35"/>
+    <circle cx="32" cy="32" r="20" fill="none" stroke="var(--ink)" stroke-width="3.5"/>
+    <line x1="18" y1="46" x2="46" y2="18" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/>
+  </svg>
+</div>
+
+<!-- Navigation buttons, shown at 34 px high under the banner. -->
+<div class="item" id="btn-does" style="width: 210px; height: 56px">
+  <div class="btn"><svg width="26" height="26" viewBox="0 0 64 64"><use href="#tri" x="12" y="10" width="42" height="46"/></svg>What it does</div>
+</div>
+<div class="item" id="btn-how" style="width: 210px; height: 56px">
+  <div class="btn"><svg width="26" height="26" viewBox="0 0 64 64"><rect x="16" y="22" width="40" height="30" rx="6" fill="var(--slide)" stroke="var(--slideline)" stroke-width="3"/><rect x="8" y="10" width="40" height="30" rx="6" fill="var(--acetate)" stroke="var(--acetateline)" stroke-width="3"/><use href="#tri" x="21" y="16" width="16" height="18"/></svg>How it works</div>
+</div>
+<div class="item" id="btn-install" style="width: 210px; height: 56px">
+  <div class="btn"><svg width="26" height="26" viewBox="0 0 64 64"><g transform="rotate(90 32 26)"><use href="#tri" x="16" y="10" width="30" height="33"/></g><path d="M12 46 V54 H52 V46" fill="none" stroke="var(--ink)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Install</div>
+</div>
+<div class="item" id="btn-use" style="width: 210px; height: 56px">
+  <div class="btn"><svg width="26" height="26" viewBox="0 0 64 64"><rect x="7" y="10" width="50" height="34" rx="6" fill="none" stroke="var(--ink)" stroke-width="5"/><path d="M32 44 V54 M20 54 H44" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/><use href="#tri" x="25" y="17" width="18" height="20"/></svg>Use</div>
+</div>
+
+</div>
+<script>
+  var NS = "http://www.w3.org/2000/svg";
+  function clamp(x) { return Math.max(0, Math.min(1, x)); }
+  function easeOut(x) { x = clamp(x); return 1 - Math.pow(1 - x, 3); }
+  function frameCounter(key, frames) {
+    window[key] = (window[key] === undefined ? -1 : window[key]) + 1;
+    return { n: window[key], p: (window[key] % frames) / frames };
+  }
+
+  // Banner: p 0-0.3 entrance with onion-skin ghosts, 0.3-0.86 hold with flowing trails, 0.86-1 fade out.
+  var REST_X = 246, START_X = -140;
+  function bannerX(p) { return START_X + (REST_X - START_X) * easeOut(p / 0.3); }
+  function setBanner(p, n) {
+    var tri = document.getElementById("b-tri"), ghosts = document.getElementById("b-ghosts"), trail = document.getElementById("b-trail");
+    var fade = p > 0.86 ? 1 - (p - 0.86) / 0.14 : 1;
+    tri.setAttribute("x", bannerX(p).toFixed(1));
+    tri.setAttribute("opacity", fade.toFixed(3));
+    ghosts.innerHTML = "";
+    for (var k = 1; k <= 4; k++) {
+      var q = p - k * 0.03;
+      if (q < 0 || p > 0.36) continue;
+      var u = document.createElementNS(NS, "use");
+      u.setAttribute("href", "#tri"); u.setAttribute("y", "70"); u.setAttribute("width", "120"); u.setAttribute("height", "132");
+      u.setAttribute("x", bannerX(q).toFixed(1)); u.setAttribute("opacity", (0.34 - k * 0.07).toFixed(2));
+      ghosts.appendChild(u);
+    }
+    trail.setAttribute("opacity", (clamp((p - 0.2) / 0.12) * fade).toFixed(3));
+    trail.setAttribute("stroke-dashoffset", (-(n * 3) % 18).toString());
+  }
+  function drawBanner(v, frames) { var f = frameCounter("__bn", frames); setBanner(f.p, f.n); }
+
+  // fig-motion: p 0-0.06 the slide is reached; the left one snaps, the right one plays its entrance to p 0.42, then ambient loops.
+  function setMotion(p, n) {
+    var left = document.querySelector("#m-left .m-content");
+    var lhead = document.getElementById("l-head");
+    var snapped = p >= 0.06;
+    left.setAttribute("opacity", snapped ? "1" : "0");
+    lhead.setAttribute("cx", snapped ? "322" : "0");
+
+    var t = clamp((p - 0.06) / 0.36);
+    function part(id, a, b, dy) {
+      var e = easeOut((t - a) / (b - a)), el = document.getElementById(id);
+      el.setAttribute("opacity", e.toFixed(3));
+      el.setAttribute("transform", "translate(" + (dy ? 0 : (1 - e) * -40).toFixed(1) + " " + (dy ? (1 - e) * 30 : 0).toFixed(1) + ")");
+    }
+    part("r-title", 0, 0.35, false);
+    part("r-text", 0.12, 0.45, false);
+    part("r-card1", 0.3, 0.7, true);
+    part("r-card2", 0.42, 0.82, true);
+    part("r-tri", 0.5, 0.9, false);
+    part("r-dot", 0.6, 1, true);
+    var hold = p >= 0.42 ? 1 : 0;
+    var flow = document.getElementById("r-flow");
+    flow.setAttribute("opacity", easeOut((t - 0.7) / 0.3).toFixed(3));
+    flow.setAttribute("stroke-dashoffset", (-(n * 3) % 16).toString());
+    var ping = document.getElementById("r-ping"), cyc = (n % 15) / 15;
+    ping.setAttribute("r", (12 + cyc * 30).toFixed(1));
+    ping.setAttribute("opacity", (hold * (1 - cyc)).toFixed(3));
+    var x = (322 * t).toFixed(1);
+    document.getElementById("r-head").setAttribute("cx", x);
+    document.getElementById("r-progress").setAttribute("x2", x);
+  }
+  function drawMotion(v, frames) { var f = frameCounter("__mo", frames); setMotion(f.p, f.n); }
+
+  // Still images: the banner at rest with the trails mid-flow, the figure after both slides have landed.
+  setBanner(0.5, 4);
+  setMotion(0.7, 5);
+</script>
+</body>
+</html>
