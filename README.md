@@ -28,6 +28,7 @@ And it runs the project around the deck:
 - from an idea: a content file with the table of contents, the script and sourced figures, approved before anything is built
 - one folder per content file, so a second version of a topic never overwrites the first
 - one shared toolchain, a `.gitignore`, and a README that lists every deck with the command that serves it
+- a cover thumbnail of each deck for the README, and a GitHub Pages site with a homepage of all decks, each with "Open deck" and "Audience" buttons, deployed by a browser-free workflow
 
 ## <picture><source media="(prefers-color-scheme: dark)" srcset="assets/ic-how-dark.webp"><img src="assets/ic-how.webp" alt="" height="32" align="top"></picture> How it works
 
@@ -85,6 +86,8 @@ Open the URL it prints, then click Present, or press P, to open the audience tab
 | `slide-motions/references/resolve-upstream.md` | Finding the official skills: client, search locations, mode |
 | `slide-motions/references/install-upstream.md` | Installing the official skills per client and scope, asked before running |
 | `slide-motions/references/project-workflow.md` | The project around a deck: stage, intake questions, content file, folder layout, toolchain, `.gitignore`, README |
+| `slide-motions/references/deck-site.md` | Cover thumbnails, the homepage of all decks, the GitHub Pages deploy and the `slide/site.json` settings |
+| `slide-motions/scripts/` | The deck-site engine copied into a deck repository: `decks.mjs`, `thumbs.mjs`, `build-site.mjs` and the `pages.yml` workflow |
 | `AGENTS.md` | Rules for an agent that improves this skill |
 | `assets/` | README images; their HTML sources are in `assets/source/` |
 

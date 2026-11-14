@@ -1,6 +1,6 @@
 # Deck project workflow
 
-Read before writing any content or deck file: it decides the stage, the intake questions, the content file, the folder layout, the toolchain, `.gitignore` and the README of the repository the decks live in.
+Read before writing any content or deck file: it decides the stage, the intake questions, the content file, the folder layout, the toolchain, `.gitignore` and the README of the repository the decks live in. Covers, the homepage and the deploy are in `references/deck-site.md`.
 
 ## Detect the stage
 
@@ -11,6 +11,7 @@ Read before writing any content or deck file: it decides the stage, the intake q
 | The same approved content, deck asked again | Rebuild | Ask where the new build goes (see Layout) |
 | A new content file on a topic that already has a deck | New deck | Build into a new variant folder; never touch the other decks |
 | Changes to a built deck | Deck edit | Edit `src/` and the content file, then rebuild |
+| A built deck the person wants in the README, on a homepage or online | Publish | Capture the thumbnail and set up the site, see `references/deck-site.md` |
 
 ## Intake
 
@@ -47,6 +48,8 @@ One file per deck, `content/<topic>/<variant>.md`, written in the script languag
 |---|---|
 | `content/<topic>/<variant>.md` | The content file of one deck |
 | `slide/<topic>/<variant>/` | The deck built from it: `index.html`, `src/`, `assets/` |
+| `slide/<topic>/<variant>/thumbnail/cover.webp` | The cover of the deck, captured after each build and committed (`references/deck-site.md`). `present` ignores it |
+| `slide/site.json` | The homepage settings of the repository, when a site is set up |
 
 - The variant names the content, for example `content/vllm/restaurant.md` and `slide/vllm/restaurant/`. A flat `content/<topic>.md` to `slide/<topic>/` mapping breaks as soon as one topic has a second content file.
 - A new content file always gets a new variant folder. Never write into another variant's folder.
@@ -82,9 +85,10 @@ Create or extend the root `.gitignore`:
 | `node_modules/` | Restored by `npm install` |
 | `.hyperframes/` | `check`, `snapshot` and `present` artifacts |
 | `skills-lock.json` | The local install record that `npx skills add` writes |
+| `_site/` | The built deck site, when one is set up; the workflow rebuilds it |
 
 - Ask about the client's skill folder (`.claude/`, `.agents/`) at the time, as a labelled question. Default: commit `.claude/skills/`, so a clone builds decks at once, and ignore `.claude/settings.local.json`, which is personal.
-- Commit the generated `index.html`, `assets/vendor/` and `assets/fonts/`: `present` reads `index.html` as it is, and the deck must run offline.
+- Commit the generated `index.html`, `assets/vendor/` and `assets/fonts/`: `present` reads `index.html` as it is, and the deck must run offline. Commit `thumbnail/cover.webp` too: a README shows only committed images.
 
 ## README
 
@@ -94,6 +98,7 @@ The repository root `README.md` lists every deck. Update it in the same turn a d
 |---|---|
 | Setup | Node.js version and where `npm install` runs |
 | Deck table | Topic, deck folder, engine, link to the content file, slide count and talk duration, status |
+| Cover gallery | The `thumbnail/cover.webp` of each deck, linking to the deployed deck, once a site is set up (`references/deck-site.md`) |
 | One block per deck | The build, `check` and `present` commands, each `present` with its own `--port` so several decks can be served at once |
 | Editing note | Edit `src/` and the content file, never the generated `index.html` |
 | Presenting | Click Present or press P; share the audience tab in Google Meet; in Zoom drag the audience tab into its own window |
